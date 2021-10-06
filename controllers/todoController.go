@@ -42,6 +42,46 @@ func CreateTodo(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, Todo)
+	c.JSON(http.StatusCreated, gin.H{
+		"status":  true,
+		"message": "Success get data",
+		"data":    Todo,
+	})
+
+}
+func GetTodos(c *gin.Context) {
+	db := database.GetDB()
+	contentType := helpers.GetContentType(c)
+	var Todos []models.Todo
+
+	if contentType == appJSON {
+		err := c.ShouldBindJSON(&Todos)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	} else {
+		err := c.ShouldBind(&Todos)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	}
+
+	err := db.Debug().Find(&Todos).Error
+
+	if err != nil {
+		fmt.Println("error", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Bad Request",
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{
+		"status":  true,
+		"message": "Success get data",
+		"data":    Todos,
+	})
 
 }
