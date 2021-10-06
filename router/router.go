@@ -11,6 +11,7 @@ func StartApp() *gin.Engine {
 	{
 		todoRouter.POST("/todos",controllers.CreateTodo)
 		todoRouter.GET("/todos",controllers.GetTodos)
+		todoRouter.PUT("/todos/:todoId",controllers.UpdateTodo)
 	}
 
 	return todoRouter
