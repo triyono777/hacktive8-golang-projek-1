@@ -7,7 +7,6 @@ import (
 
 type Todo struct {
 	GormModel
-	Id    uint
 	Title string `json:"title"`
 	Done  bool   `json:"done"`
 }

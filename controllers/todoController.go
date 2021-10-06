@@ -86,6 +86,43 @@ func GetTodos(c *gin.Context) {
 	})
 
 }
+func GetSingleTodo(c *gin.Context) {
+	db := database.GetDB()
+	contentType := helpers.GetContentType(c)
+	var Todo models.Todo
+	todoId, _ := strconv.Atoi(c.Param("todoId"))
+
+	if contentType == appJSON {
+		err := c.ShouldBindJSON(&Todo)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	} else {
+		err := c.ShouldBind(&Todo)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	}
+
+	err := db.Debug().Where("id = ?",todoId).First(&Todo).Error
+
+	if err != nil {
+		fmt.Println("error", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Bad Request",
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{
+		"status":  true,
+		"message": "Success get single data",
+		"data":    Todo,
+	})
+
+}
 func UpdateTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -105,7 +142,7 @@ func UpdateTodo(c *gin.Context) {
 			return
 		}
 	}
-	Todo.Id = uint(todoId)
+	Todo.ID = uint(todoId)
 
 	err := db.Debug().Model(&Todo).Where("id = ?", todoId).Updates(models.Todo{
 		Title: Todo.Title,
@@ -146,7 +183,7 @@ func DeleteTodo(c *gin.Context) {
 			return
 		}
 	}
-	Todo.Id = uint(todoId)
+	Todo.ID = uint(todoId)
 
 	err := db.Debug().Model(&Todo).Where("id = ?", todoId).Delete(&Todo).Error
 
