@@ -79,11 +79,20 @@ func GetTodos(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"status":  true,
-		"message": "Success get data",
-		"data":    Todos,
-	})
+	if len(Todos) == 0 {
+		c.JSON(http.StatusCreated, gin.H{
+			"status":  true,
+			"message": "Data kosong",
+			"data":    Todos,
+		})
+	}else {
+		c.JSON(http.StatusCreated, gin.H{
+			"status":  true,
+			"message": "Success get data",
+			"data":    Todos,
+		})
+	}
+
 
 }
 func GetSingleTodo(c *gin.Context) {
@@ -106,7 +115,7 @@ func GetSingleTodo(c *gin.Context) {
 		}
 	}
 
-	err := db.Debug().Where("id = ?",todoId).First(&Todo).Error
+	err := db.Debug().Where("id = ?", todoId).First(&Todo).Error
 
 	if err != nil {
 		fmt.Println("error", err)
