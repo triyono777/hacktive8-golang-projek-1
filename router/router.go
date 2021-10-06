@@ -12,6 +12,7 @@ func StartApp() *gin.Engine {
 		todoRouter.POST("/todos",controllers.CreateTodo)
 		todoRouter.GET("/todos",controllers.GetTodos)
 		todoRouter.PUT("/todos/:todoId",controllers.UpdateTodo)
+		todoRouter.DELETE("/todos/:todoId",controllers.DeleteTodo)
 	}
 
 	return todoRouter

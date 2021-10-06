@@ -127,3 +127,40 @@ func UpdateTodo(c *gin.Context) {
 	})
 
 }
+func DeleteTodo(c *gin.Context) {
+	db := database.GetDB()
+	contentType := helpers.GetContentType(c)
+	Todo := models.Todo{}
+	todoId, _ := strconv.Atoi(c.Param("todoId"))
+
+	if contentType == appJSON {
+		err := c.ShouldBindJSON(&Todo)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	} else {
+		err := c.ShouldBind(&Todo)
+		if err != nil {
+			panic(err.Error())
+			return
+		}
+	}
+	Todo.Id = uint(todoId)
+
+	err := db.Debug().Model(&Todo).Where("id = ?", todoId).Delete(&Todo).Error
+
+	if err != nil {
+		fmt.Println("error", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Bad Request",
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{
+		"status":  true,
+		"message": "Success delete data",
+	})
+
+}
