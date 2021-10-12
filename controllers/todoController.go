@@ -3,7 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	_ "github.com/swaggo/http-swagger"
 	"hacktive8-golang-projek-1/database"
+	_ "hacktive8-golang-projek-1/docs"
 	"hacktive8-golang-projek-1/helpers"
 	"hacktive8-golang-projek-1/models"
 	"net/http"
@@ -13,6 +15,8 @@ import (
 var (
 	appJSON = "application/json"
 )
+
+
 
 func CreateTodo(c *gin.Context) {
 	db := database.GetDB()
