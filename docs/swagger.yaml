@@ -1,5 +1,5 @@
 basePath: /
-host: localhost:9000
+host: localhost:9001
 info:
   contact:
     email: yono.tri@gmail.com
@@ -25,7 +25,102 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Show the status of server.
+      summary: get todos
       tags:
-      - getTodos
+      - todos
+    post:
+      consumes:
+      - application/json
+      description: create new todos with input payload.
+      parameters:
+      - description: title todo
+        in: query
+        name: Title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create todos.
+      tags:
+      - todos
+  /todos/:todoId:
+    delete:
+      consumes:
+      - application/json
+      description: delete todo.
+      parameters:
+      - description: todo id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete todos.
+      tags:
+      - todos
+    get:
+      consumes:
+      - application/json
+      description: get single todo.
+      parameters:
+      - description: todo id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: get single todos.
+      tags:
+      - todos
+    put:
+      consumes:
+      - application/json
+      description: update new todos with input payload.
+      parameters:
+      - description: todo id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: title todo
+        in: query
+        name: Title
+        required: true
+        type: string
+      - description: 'todo done or yet '
+        in: query
+        name: Done
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update todos.
+      tags:
+      - todos
 swagger: "2.0"

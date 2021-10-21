@@ -12,7 +12,7 @@ import (
 
 func StartApp() *gin.Engine {
 	todoRouter := gin.Default()
-	url:= ginSwagger.URL("http://localhost:9000/docs/doc.json")
+	url:= ginSwagger.URL("http://localhost:9001/docs/doc.json")
 
 	{
 		todoRouter.GET("/docs/*any",ginSwagger.WrapHandler(swaggerFiles.Handler, url))
