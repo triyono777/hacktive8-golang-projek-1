@@ -217,7 +217,7 @@ func UpdateTodo(c *gin.Context) {
 }
 
 // DeleteTodo godoc
-// @Summary Delete todos.
+// @Summary Delete todo.
 // @Description delete todo.
 // @Tags todos
 // @Accept json
