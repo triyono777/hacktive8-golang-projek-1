@@ -2,16 +2,17 @@ package database
 
 import (
 	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"hacktive8-golang-projek-1/models"
 	"log"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var (
 	host     = "localhost"
 	user     = "root"
-	password = "Triyono7"
+	password = "jjeak///"
 	dbPort   = "3306"
 	dbName   = "db_todos"
 	db       *gorm.DB
