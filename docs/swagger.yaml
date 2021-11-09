@@ -49,7 +49,7 @@ paths:
       summary: Create todos.
       tags:
       - todos
-  /todos/:todoId:
+  /todos/{todoId}:
     delete:
       consumes:
       - application/json
@@ -57,7 +57,7 @@ paths:
       parameters:
       - description: todo id
         in: path
-        name: id
+        name: todoId
         required: true
         type: string
       produces:
@@ -68,7 +68,7 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Delete todos.
+      summary: Delete todo.
       tags:
       - todos
     get:
@@ -78,7 +78,7 @@ paths:
       parameters:
       - description: todo id
         in: path
-        name: id
+        name: todoId
         required: true
         type: string
       produces:
@@ -99,7 +99,7 @@ paths:
       parameters:
       - description: todo id
         in: path
-        name: id
+        name: todoId
         required: true
         type: string
       - description: title todo

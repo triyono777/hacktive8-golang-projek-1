@@ -86,7 +86,7 @@ var doc = `{
                 }
             }
         },
-        "/todos/:todoId": {
+        "/todos/{todoId}": {
             "get": {
                 "description": "get single todo.",
                 "consumes": [
@@ -103,7 +103,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "todo id",
-                        "name": "id",
+                        "name": "todoId",
                         "in": "path",
                         "required": true
                     }
@@ -134,7 +134,7 @@ var doc = `{
                     {
                         "type": "string",
                         "description": "todo id",
-                        "name": "id",
+                        "name": "todoId",
                         "in": "path",
                         "required": true
                     },
@@ -174,12 +174,12 @@ var doc = `{
                 "tags": [
                     "todos"
                 ],
-                "summary": "Delete todos.",
+                "summary": "Delete todo.",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "todo id",
-                        "name": "id",
+                        "name": "todoId",
                         "in": "path",
                         "required": true
                     }
@@ -249,5 +249,5 @@ func (s *s) ReadDoc() string {
 }
 
 func init() {
-	swag.Register(swag.Name, &s{})
+	swag.Register("swagger", &s{})
 }

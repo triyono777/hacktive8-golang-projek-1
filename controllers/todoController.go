@@ -121,9 +121,9 @@ func GetTodos(c *gin.Context) {
 //@Tags todos
 //@Accept json
 //@Produce json
-// @Param   id     path    string     true        "todo id"
+// @Param   todoId     path    string     true        "todo id"
 //@Success 200 {object} map[string]interface{}
-//@Router /todos/:todoId [get]
+//@Router /todos/{todoId} [get]
 func GetSingleTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -169,11 +169,11 @@ func GetSingleTodo(c *gin.Context) {
 // @Tags todos
 // @Accept json
 // @Produce json
-// @Param   id     path    string     true        "todo id"
+// @Param   todoId     path    string     true        "todo id"
 // @Param   Title     query    string     true        "title todo"
 // @Param   Done     query    bool     true        "todo done or yet "
 // @Success 200 {object} map[string]interface{}
-// @Router /todos/:todoId [put]
+// @Router /todos/{todoId} [put]
 func UpdateTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -222,9 +222,9 @@ func UpdateTodo(c *gin.Context) {
 // @Tags todos
 // @Accept json
 // @Produce json
-// @Param   id     path    string     true        "todo id"
+// @Param   todoId     path    string     true        "todo id"
 // @Success 200 {object} map[string]interface{}
-// @Router /todos/:todoId [delete]
+// @Router /todos/{todoId} [delete]
 func DeleteTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
