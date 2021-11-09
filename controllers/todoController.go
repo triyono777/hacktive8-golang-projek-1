@@ -2,18 +2,30 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"hacktive8-golang-projek-1/database"
+	_ "hacktive8-golang-projek-1/docs"
 	"hacktive8-golang-projek-1/helpers"
 	"hacktive8-golang-projek-1/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/swaggo/http-swagger"
 )
 
 var (
 	appJSON = "application/json"
 )
 
+// CreateTodo godoc
+// @Summary Create todos.
+// @Description create new todos with input payload.
+// @Tags todos
+// @Accept json
+// @Produce json
+// @Param   Title     query    string     true        "title todo"
+// @Success 200 {object} map[string]interface{}
+// @Router /todos [post]
 func CreateTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -50,6 +62,15 @@ func CreateTodo(c *gin.Context) {
 	})
 
 }
+
+// GetTodos getTodo godoc
+//@Summary get todos
+//@Description create new todos with input payload.
+//@Tags todos
+//@Accept json
+//@Produce json
+//@Success 200 {object} map[string]interface{}
+//@Router /todos [get]
 func GetTodos(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -85,7 +106,7 @@ func GetTodos(c *gin.Context) {
 			"message": "Data kosong",
 			"data":    Todos,
 		})
-	}else {
+	} else {
 		c.JSON(http.StatusCreated, gin.H{
 			"status":  true,
 			"message": "Success get data",
@@ -93,8 +114,17 @@ func GetTodos(c *gin.Context) {
 		})
 	}
 
-
 }
+
+// GetSingleTodo  get single Todo godoc
+//@Summary get single todos.
+//@Description get single todo.
+//@Tags todos
+//@Accept json
+//@Produce json
+//@Param   todoId     path    string     true        "todo id"
+//@Success 200 {object} map[string]interface{}
+//@Router /todos/{todoId} [get]
 func GetSingleTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -132,6 +162,18 @@ func GetSingleTodo(c *gin.Context) {
 	})
 
 }
+
+// UpdateTodo godoc
+// @Summary Update todos.
+// @Description update new todos with input payload.
+// @Tags todos
+// @Accept json
+// @Produce json
+// @Param   todoId     path    string     true        "todo id"
+// @Param   Title     query    string     true        "title todo"
+// @Param   Done     query    bool     true        "todo done or yet "
+// @Success 200 {object} map[string]interface{}
+// @Router /todos/{todoId} [put]
 func UpdateTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -173,6 +215,16 @@ func UpdateTodo(c *gin.Context) {
 	})
 
 }
+
+// DeleteTodo godoc
+// @Summary Delete todo.
+// @Description delete todo.
+// @Tags todos
+// @Accept json
+// @Produce json
+// @Param   todoId     path    string     true        "todo id"
+// @Success 200 {object} map[string]interface{}
+// @Router /todos/{todoId} [delete]
 func DeleteTodo(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
